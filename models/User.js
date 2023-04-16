@@ -1,4 +1,5 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model, mongoose } = require('mongoose');
+require('mongoose-type-email');
 const thoughtSchema = require('./Thought')
 
 const userSchema = new Schema(
@@ -10,18 +11,28 @@ const userSchema = new Schema(
             trim: true,
         }, 
         email: { 
-            type: String,
+            type: mongoose.SchemaTypes.Email,
             required: true,
             unique: true,
-            validate: [validateEmail]
-            match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Please use a valid email']
         }, 
         thoughts: [thoughtSchema], 
         friends: [ this ]
     }, 
     {
         toJSON: {
-            getters: true,
+            virtuals: true,
         },
+        id: false
     }
 )
+
+userSchema
+.virtual('friendCount')
+.get(function() {
+    // TODO: check to make sure this is right.
+    return this.friends.length
+})
+
+const User = model('user', userSchema)
+
+module.exports = User;
