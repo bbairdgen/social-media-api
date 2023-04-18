@@ -14,10 +14,19 @@ const userSchema = new Schema(
             type: mongoose.SchemaTypes.Email,
             required: true,
             unique: true,
+            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Enter valid email address."]
         }, 
-        thoughts: [thoughtSchema], 
-        friends: [ this ]
-    }, 
+        thoughts: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Thought'
+            },
+            thoughtSchema], 
+        friends: [ 
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }]},
     {
         toJSON: {
             virtuals: true,
@@ -29,7 +38,6 @@ const userSchema = new Schema(
 userSchema
 .virtual('friendCount')
 .get(function() {
-    // TODO: check to make sure this is right.
     return this.friends.length
 })
 

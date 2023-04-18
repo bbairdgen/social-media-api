@@ -1,4 +1,4 @@
-const { Schema, model }= require('mongoose')
+const { Schema } = require('mongoose')
 
 const reactionSchema = new Schema(
     {
@@ -19,11 +19,11 @@ const reactionSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now, 
-            // TODO: query to format date
+            
         }
     }
 )
 
-const Reaction = model('reaction', reactionSchema)
 
-module.exports = Reaction
+
+module.exports = reactionSchema
