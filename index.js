@@ -5,7 +5,7 @@ const { log } = require('console');
 
 const cwd = process.cwd()
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 const app = express()
 
 app.use(express.urlencoded({ extnded: true }))
