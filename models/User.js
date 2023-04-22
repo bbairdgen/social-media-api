@@ -1,5 +1,4 @@
 const { Schema, model, mongoose } = require('mongoose');
-const thoughtSchema = require('./Thought')
 
 const userSchema = new Schema(
     {
@@ -36,6 +35,7 @@ const userSchema = new Schema(
     }
 )
 
+// creates a count of the number of friends.
 userSchema
     .virtual('friendCount')
     .get(function () {

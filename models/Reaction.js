@@ -4,7 +4,7 @@ const dateFormat = require('../utils/dateFormat')
 
 const reactionSchema = new Schema(
     {
-        reactionId: { 
+        reactionId: {
             type: Schema.Types.ObjectId,
             // ref: 'reaction',
             default: () => new Types.ObjectId()
@@ -15,12 +15,13 @@ const reactionSchema = new Schema(
             maxLength: 280
         },
         username: {
-            type: String, 
+            type: String,
             requires: true,
-        }, 
+        },
         createdAt: {
             type: Date,
-            default: Date.now, 
+            default: Date.now,
+            // converts date to more familiar format
             get: dateFormat
         }
     },
