@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose')
 const reactionSchema = require('./Reaction')
 
+const dateFormat = require('../utils/dateFormat')
+
+
+
 const thoughtSchema = new Schema(
     {
         thoughtText: {
@@ -11,8 +15,8 @@ const thoughtSchema = new Schema(
         }, 
         createdAt: {
             type: Date, 
-            default: Date.now
-            // TODO: query to format date
+            default: Date.now,
+            get: dateFormat
         }, 
         username:
         {
@@ -23,6 +27,7 @@ const thoughtSchema = new Schema(
     }, 
     {
         toJSON: {
+            getters: true,
             virtuals: true, 
     },
     id: false
@@ -35,6 +40,6 @@ thoughtSchema
     return this.reactions.length
 })
 
-const Thought = model('thought', thoughtSchema)
+const Thought = model('Thought', thoughtSchema)
 
 module.exports = Thought
