@@ -70,13 +70,14 @@ module.exports = {
     // Delete to remove user by _id
     async deleteUser(req, res) {
         try {
-            const user = User.deleteOne({ _id: req.params.userId }).then((dbmodel) => res.json(dbmodel))
+            const user = User.deleteOne({ _id: req.params.userId }).then(() => res.json('User has been deleted.'))
 
             if (!user) {
                 return res.status(404).json({ message: 'No user found' })
             }
 
-            res.json({ message: 'User has been deleted.' })
+            // res.json({ message: 'User has been deleted.' })
+            
         } catch (err) {
             console.log(err);
             return res.status(500).json(err)
